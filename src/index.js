@@ -66,14 +66,17 @@ function Header() {
 }
 
 function Menu() {
+  const pizzaCount = pizzaData.length;
   return (
     <main className="menu">
       <h2>Our menu</h2>
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
+      {pizzaCount > 0 && (
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
@@ -98,7 +101,17 @@ function Footer() {
   const isOpen = hour >= openHour && hour <= closeHour;
   console.log(isOpen);
   return (
-    <footer>{new Date().toLocaleTimeString()} We're currently open</footer>
+    <footer>
+      {isOpen && (
+        <div className="order">
+          <p>
+            We're currently open until {closeHour}:00.Come visit us or order
+            online
+          </p>
+          <button className="btn">Order</button>
+        </div>
+      )}{" "}
+    </footer>
   );
 }
 const root = ReactDOM.createRoot(document.getElementById("root"));
